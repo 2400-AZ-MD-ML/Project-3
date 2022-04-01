@@ -129,11 +129,18 @@ class BinaryNode<T>
    @return  The height of the subtree rooted at "this" node. */
    public int getHeight_binaryNodeMethod()
    {
-      if (this.data == null) {
-         return 0;
+      int leftHeight = 0;
+      int rightHeight = 0;
+
+      if (this.isLeaf()) {
+         return 1;
       }
+      if (leftChild != null)
+         leftHeight = leftChild.getHeight_binaryNodeMethod();
+      if (rightChild != null)
+         rightHeight = rightChild.getHeight_binaryNodeMethod();
 	   
-      return 1 + Math.max(height(this.leftChild), height(this.rightChild));
+      return 1 + Math.max(leftHeight, rightHeight);
    } // end getHeight
    
 
