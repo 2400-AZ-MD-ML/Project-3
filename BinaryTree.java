@@ -2,7 +2,7 @@ package Project3;
 public class BinaryTree<T> implements BinaryTreeInterface<T>
 {
    private BinaryNode<T> root;
-
+   private String post = "";
    public BinaryTree()
    {
       root = null;
@@ -106,7 +106,7 @@ public class BinaryTree<T> implements BinaryTreeInterface<T>
       else{
          postorderTraverse(node.getLeftChild());
          postorderTraverse(node.getRightChild());
-         System.out.println(node.getData());
+         System.out.print(node.getData());
       }
 
    }
@@ -150,10 +150,9 @@ public class BinaryTree<T> implements BinaryTreeInterface<T>
    @return  The height of the "whole" tree. */
    public int getHeight_callBinaryNodeMethod()
    {
-      int height = 0;
-      if (root != null) 
-         height = root.getHeight_binaryNodeMethod();
-	   return height;
+      
+       return root.getHeight_binaryNodeMethod();
+	   
    } // end getHeight_callBinaryNodeMethod
 
    /** -------------------------------------------------------------------- */
@@ -166,7 +165,7 @@ public class BinaryTree<T> implements BinaryTreeInterface<T>
    @return  The number of nodes in the "whole" tree */
    public int getNumberOfNodes()
    {
-      return 0;
+     return getNumberOfNodes(root);
    } // end getNumberOfNodes
    
    /** A Recursive Method in the BinaryTree Class   
@@ -174,7 +173,10 @@ public class BinaryTree<T> implements BinaryTreeInterface<T>
    @return  The number of nodes in the subtree rooted at this node. */
    private int getNumberOfNodes(BinaryNode<T> node)
    {
-      return 0;
+      if(node == null){
+         return 0;
+      }
+        return 1 + getNumberOfNodes(node.getRightChild()) + getNumberOfNodes(node.getLeftChild());
    } // end getNumberOfNodes
    
    /** The following calls getNumberOfNodes_binaryNodeMethod() which is a recursive binaryNode class method
@@ -187,5 +189,16 @@ public class BinaryTree<T> implements BinaryTreeInterface<T>
 		   numberOfNodes = root.getNumberOfNodes_binaryNodeMethod();
 	   return numberOfNodes;
    } // end getNumberOfNodes_callBinaryNodeMethod
-   
+   protected String postOrder(BinaryNode<T> node){
+
+      if(node == null){
+         return "";
+      }
+      else{
+         postOrder(node.getLeftChild());
+         postOrder(node.getRightChild());
+         post += node.getData();
+      }
+      return post;
+   }
 } // end BinaryTree
